@@ -11,8 +11,7 @@ class ProfileClass extends React.Component {//toLocaleDateString()
             month: 'long',
             day: 'numeric'
         };
-        const nameCurrent = this.props.name.split(" ")
-        this.returns = nameCurrent.filter(nameCurrentFiltr => !!this.state.names.includes(nameCurrentFiltr));// сама фильтрация 
+        this.returns = this.props.name.split(" ").filter(nameCurrentFiltr => !!this.state.names.includes(nameCurrentFiltr));// сама фильтрация 
         this.returns1 = this.props.registredAt.toLocaleDateString("ru", this.options)
     }
     render() {
