@@ -17,8 +17,7 @@ function Profile(props) {
 
   const names = ["Вася"]  // сдесь должн быть длинный список имен чтоб фильтровать пропс и показывать только имена, но пока одного хватит
 
-  const nameCurrent = props.name.split(" ")
-  const returns = nameCurrent.filter(nameCurrentFiltr => !!names.includes(nameCurrentFiltr));// сама фильтрация
+  const returns = props.name.split(" ").filter(nameCurrentFiltr => !!names.includes(nameCurrentFiltr));// сама фильтрация
 
   let options = { year: 'numeric', month: 'long', day: 'numeric' };
   return (
