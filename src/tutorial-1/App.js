@@ -1,32 +1,50 @@
 import React from "react"
 import './App.css';
-import ProfileClass from "./profile";
+
 
 function App() {
 
   return (
     <div className="App">
-      <ProfileClass name="Вася Пупкин" registredAt={new Date(2021, 5, 22)} />
-      <Profile name="Вася Пупкин" registredAt={new Date(2021, 5, 22)} />
-
+      <Profile />
     </div>
   );
 }
 
+let email;
+let password;
+const cheked = (event) => {
+  if (event.target.name === "email") {
+    email = event.target.value
+  }
+  else {
+    password = event.target.value
+  }
+
+}
 function Profile(props) {
-
-  const names = ["Вася"]  // сдесь должн быть длинный список имен чтоб фильтровать пропс и показывать только имена, но пока одного хватит
-
-  const nameCurrent = props.name.split(" ")
-  const returns = nameCurrent.filter(nameCurrentFiltr => !!names.includes(nameCurrentFiltr));// сама фильтрация
-
-  let options = { year: 'numeric', month: 'long', day: 'numeric' };
+  function handleSubmit(event) {
+    event.preventDefault()
+    if (email === undefined || password === undefined) {
+      alert("заполни поля")
+    }
+    else {
+      console.log(email, password);
+      email = event.target.reset()
+      password = event.target.reset()
+    }
+  }
   return (
     <div className="hello">
-      <div className="helloName">Привет, <b>{returns}</b></div>
-      <div className="helloDataRegistrein">Дата регистрации: {props.registredAt.toLocaleDateString('ru', options)}</div>
+      <form onSubmit={handleSubmit}>
+        <input placeholder="E-Mail" type={"text"} name="email" onChange={cheked} />
+        <input placeholder="password" type={"password"} name="password" onChange={cheked} />
+        <button type="submit" >Отправить</button>
+      </form>
     </div>
   )
 }
+
+
 
 export default App;
