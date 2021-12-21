@@ -3,29 +3,22 @@ import './App.css';
 
 
 function App() {
+  let email;
+  let password;
+  const cheked = (event) => {
+    if (event.target.name === "email") {
+      email = event.target.value.trim()
+    }
+    else {
+      password = event.target.value.trim()
+    }
 
-  return (
-    <div className="App">
-      <Profile />
-    </div>
-  );
-}
-
-let email;
-let password;
-const cheked = (event) => {
-  if (event.target.name === "email") {
-    email = event.target.value
   }
-  else {
-    password = event.target.value
-  }
-
-}
-function Profile(props) {
   function handleSubmit(event) {
+
     event.preventDefault()
-    if (email === undefined || password === undefined) {
+
+    if (!email || !password) {
       alert("заполни поля")
     }
     else {
