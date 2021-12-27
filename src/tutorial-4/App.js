@@ -1,7 +1,7 @@
 import React from "react"
 
 import './App.css';
-import TabCard from "./components/TabCard";
+
 // function Clickw() {
 //   setCount(count + { text: "fffffffffffffasdfas" })
 // }
@@ -50,7 +50,7 @@ function App() {
             return (
               <div className={`tab ${active === tab.id ? "active" : ""}`}
                 key={tab.title}>
-                <TabCard tab={tab} TabClick={() => TabClick(tab.id)} />
+
               </div>
             )
           })}
