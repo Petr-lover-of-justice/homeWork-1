@@ -1,44 +1,50 @@
-import React from "react"
-
+import React from "react";
 import './App.css';
-import EmptyBlock from "./components/EmptyBlock";
-import Phrase from "./components/Phrase";
-import { adjectivesArr, nounsArr } from "./components/state"
+import Form from "./components/form";
+import List from "./components/list";
+
+
+
+// Imported Components below
 
 function App() {
-  const [active, setActive] = React.useState([])
+  const [comments, setComments] = React.useState([]);
 
-  function TabClick() {
-    let word1 = Math.floor(Math.random() * adjectivesArr.length);
-    let word2 = Math.floor(Math.random() * adjectivesArr.length);
-    let word3 = Math.floor(Math.random() * nounsArr.length);
-
-    setActive((prev) =>
-      [...prev, `${adjectivesArr[word1]} ${adjectivesArr[word2]} ${adjectivesArr[word3]}`,
-      ]);
+  const onSave = (name, email, text) => {
+    const newData = {
+      fullName: name,
+      email: email,
+      createdAt: inputChangedAt,
+      text: text,
+      id: Math.random()
+    }
+    setComments([...comments, newData])
   }
 
-
-  const clear = () => {
-    setActive([])
+  const onRemove = (id) => {
+    const newArr = comments.filter((i) => i.id !== id);
+    localStorage.setItem('comments', JSON.stringify(newArr))
+    setComments(newArr)
   }
 
+  const inputChangedAt = new Date().toLocaleTimeString("ru-RU", { year: "numeric", day: "numeric", month: "numeric" })
+  React.useEffect(() => {
+    if (localStorage.getItem('comments')) {
+      setComments(JSON.parse(localStorage.getItem('comments')))
+    }
+  }, [])
+
+  React.useEffect(() => {
+    if (comments.length) {
+      localStorage.setItem('comments', JSON.stringify(comments))
+    }
+  }, [comments])
 
   return (
-    <div className="wrapper">
-      <div >
-        {active && active.map((text, index) => <Phrase key={index} text={text}> /</Phrase>)}
-      </div>
-      {!active.length && <EmptyBlock />}
-      <button
-        onClick={TabClick}
-        className="btn btn_generate">
-        Сгенерировать
-      </button>
-      <button onClick={clear} className="btn btn_clear">Очистить</button>
-
-    </div >
-
+    <div>
+      <List comments={comments} onRemove={onRemove} />
+      <Form onSave={onSave} />
+    </div>
   )
 }
 
